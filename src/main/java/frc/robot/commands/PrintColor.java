@@ -2,9 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.ExampleSubsystem;
 
-import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -14,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class PrintColor extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ColorSensor colorSensorSubsystem = Robot.COLORSENSOR;
+    private boolean isPrinted = false;
   /**
    * Creates a new ExampleCommand.
    *
@@ -29,7 +28,6 @@ public class PrintColor extends CommandBase {
   @Override
   public void initialize() 
   {
-      System.out.println("PrintColor ws init");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,6 +35,7 @@ public class PrintColor extends CommandBase {
   public void execute()
   {
     colorSensorSubsystem.printColorSensor();
+    isPrinted = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +48,6 @@ public class PrintColor extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return isPrinted;
   }
 }
