@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -9,7 +11,9 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 
-public class ColorSensor extends SubsystemBase {
+public class WheelSpin extends SubsystemBase {
+
+    private TalonSRX wheelMotor = new TalonSRX(6);
 
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
@@ -17,7 +21,7 @@ public class ColorSensor extends SubsystemBase {
   /**
    * Creates a new ExampleSubsystem.
    */
-  public ColorSensor() {
+  public WheelSpin() {
     colorMatcher.addColorMatch(Color.kYellow);
     colorMatcher.addColorMatch(Color.kBlue);
     colorMatcher.addColorMatch(Color.kRed);
@@ -29,18 +33,18 @@ public class ColorSensor extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void printColorSensor() {
-      Color color = colorSensor.getColor();
-      System.out.println("RGB: (R: " + color.red + ", G:" + color.green + ", B: " + color.blue + ")");
-  }
-  
-  public void colorID() {
-    Color currentColor = colorSensor.getColor();
-    ColorMatchResult result = colorMatcher.matchClosestColor(currentColor);
-    System.out.println(result);
+
+  public void startSpin() {
+        wheelMotor.set(ControlMode.PercentOutput, 0.5);
   }
 
-  public Color getColor() {
-    return colorSensor.getColor();
+  public void stopSpin() {
+      wheelMotor.set(ControlMode.PercentOutput, 0.0);
   }
+
+  public ColorSensorV3 getColorSensor() {
+      return colorSensor;
+  }
+
+  
 }
