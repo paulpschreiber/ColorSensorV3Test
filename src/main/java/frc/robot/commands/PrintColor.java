@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class PrintColor extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private ColorSensor colorSensorSubsystem = Robot.COLORSENSOR;
-    private boolean isPrinted = false;
   /**
    * Creates a new ExampleCommand.
    *
@@ -36,7 +35,6 @@ public class PrintColor extends CommandBase {
   {
     colorSensorSubsystem.printColorSensor();
     colorSensorSubsystem.colorID();
-    isPrinted = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +47,6 @@ public class PrintColor extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    return isPrinted;
+    return false;
   }
 }

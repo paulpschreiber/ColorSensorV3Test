@@ -5,7 +5,6 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.WheelSpin;
 
 import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
