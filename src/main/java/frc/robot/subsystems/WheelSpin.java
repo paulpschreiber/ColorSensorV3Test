@@ -33,7 +33,8 @@ public class WheelSpin extends SubsystemBase {
   }
 
 
-  public void startSpin() {
+  public void startSpin() 
+  {
         wheelMotor.set(ControlMode.PercentOutput, 0.5);
   }
 

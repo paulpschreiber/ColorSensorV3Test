@@ -9,6 +9,7 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+
 /**
  * An example command that uses an example subsystem.
  */
@@ -35,10 +36,10 @@ public class SpinWheelMotor extends CommandBase {
   @Override
   public void initialize() 
   {
-      colorChecker.addColorMatch(Color.kYellow);
-      colorChecker.addColorMatch(Color.kGreen);
-      colorChecker.addColorMatch(Color.kBlue);
-      colorChecker.addColorMatch(Color.kRed);
+      colorChecker.addColorMatch(colorSensorSubsystem.realYellow);
+      colorChecker.addColorMatch(colorSensorSubsystem.realGreen);
+      colorChecker.addColorMatch(colorSensorSubsystem.realBlue);
+      colorChecker.addColorMatch(colorSensorSubsystem.realRed);
       wheelSpinSubsystem.startSpin();
   }
 
@@ -46,8 +47,11 @@ public class SpinWheelMotor extends CommandBase {
   @Override
   public void execute()
   {
-    if (colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color.equals(Color.kYellow)) {
-        matchesColor = true;
+    if (colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color.equals(colorSensorSubsystem.realYellow)) {
+      matchesColor = true;
+      wheelSpinSubsystem.stopSpin();
+    } else {
+      wheelSpinSubsystem.startSpin();
     }
 
   }
@@ -56,13 +60,12 @@ public class SpinWheelMotor extends CommandBase {
   @Override
   public void end(boolean interrupted) 
   {
-      wheelSpinSubsystem.stopSpin();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return matchesColor;
+    return false;
   }
 }

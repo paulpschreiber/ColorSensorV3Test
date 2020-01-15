@@ -7,7 +7,6 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
@@ -18,10 +17,14 @@ public class CalibrateColors extends CommandBase {
     private boolean isMatched = false;
     private ColorSensor colorSensorSubsystem = Robot.COLORSENSOR;
     private ColorMatch colorMatchSystem = new ColorMatch();
-    private Color8Bit perfectRed = new Color8Bit(255, 0, 0), 
-            perfectBlue = new Color8Bit(0, 255, 255),   
-            perfectGreen = new Color8Bit(0, 255, 0), 
-            perfectYellow = new Color8Bit(255, 255, 0);
+    private Color perfectRed = ColorMatch.makeColor(1.0, 0.0, 0.0), 
+            perfectBlue = ColorMatch.makeColor(0.0, 0.5, 0.5),   
+            perfectGreen = ColorMatch.makeColor(0.0, 1.0, 0.0), 
+            perfectYellow = ColorMatch.makeColor(0.5, 0.5, 0.0),
+            realYellow = ColorMatch.makeColor(0.31005859375, 0.56884765625, 0.120849609375),
+            realRed = ColorMatch.makeColor(0.52197265625, 0.347900390625, 0.1298828125),
+            realGreen = ColorMatch.makeColor(0.15771484375, 0.5888671875, 0.25341796875),
+            realBlue = ColorMatch.makeColor(0.12255859375, 0.431884765625, 0.445556640625);
 
   /**
    * Creates a new ExampleCommand.
@@ -38,10 +41,10 @@ public class CalibrateColors extends CommandBase {
   @Override
   public void initialize() 
   {
-    colorMatchSystem.addColorMatch(new Color(perfectRed));
-    colorMatchSystem.addColorMatch(new Color(perfectGreen));
-    colorMatchSystem.addColorMatch(new Color(perfectBlue));
-    colorMatchSystem.addColorMatch(new Color(perfectYellow));
+    colorMatchSystem.addColorMatch(realRed);
+    colorMatchSystem.addColorMatch(realGreen);
+    colorMatchSystem.addColorMatch(realBlue);
+    colorMatchSystem.addColorMatch(realYellow);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,16 +54,17 @@ public class CalibrateColors extends CommandBase {
       String colorName = "Default";
       Color currentColor = colorSensorSubsystem.getColor();
       ColorMatchResult result = colorMatchSystem.matchClosestColor(currentColor);
-      if (result.color.equals(new Color(perfectRed))) {
+      if (result.color.equals(realRed)) {
             colorName = "Red";
-      } else if (result.color.equals(new Color(perfectBlue))) {
+      } else if (result.color.equals(realBlue)) {
             colorName = "Blue";
-      } else if (result.color.equals(new Color(perfectGreen))) {
+      } else if (result.color.equals(realGreen)) {
             colorName = "Green";
-      } else if (result.color.equals(new Color(perfectYellow))) {
+      } else if (result.color.equals(realYellow)) {
             colorName = "Yellow";
       }
       System.out.println("Color: " + colorName + "; Confidence: " + result.confidence);
+      colorSensorSubsystem.printColorSensor();
       isMatched = true;
   }
 

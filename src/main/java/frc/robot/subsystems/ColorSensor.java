@@ -25,14 +25,19 @@ public class ColorSensor extends SubsystemBase implements Measurable{
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private ColorMatch colorMatcher = new ColorMatch();
     private Color colorUpdated;
+    public Color realYellow = ColorMatch.makeColor(0.31005859375, 0.56884765625, 0.120849609375),
+    realRed = ColorMatch.makeColor(0.52197265625, 0.347900390625, 0.1298828125),
+    realGreen = ColorMatch.makeColor(0.15771484375, 0.5888671875, 0.25341796875),
+    realBlue = ColorMatch.makeColor(0.12255859375, 0.431884765625, 0.445556640625);
+
   /**
    * Creates a new ExampleSubsystem.
    */
   public ColorSensor() {
-    colorMatcher.addColorMatch(Color.kYellow);
-    colorMatcher.addColorMatch(Color.kBlue);
-    colorMatcher.addColorMatch(Color.kRed);
-    colorMatcher.addColorMatch(Color.kGreen);
+    colorMatcher.addColorMatch(realYellow);
+    colorMatcher.addColorMatch(realBlue);
+    colorMatcher.addColorMatch(realRed);
+    colorMatcher.addColorMatch(realGreen);
     telemetryService = Robot.TELEMETRY;
     telemetryService.stop();
     telemetryService.register(this);
