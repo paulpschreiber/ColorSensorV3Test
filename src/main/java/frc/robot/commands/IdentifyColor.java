@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ColorSensor;
 
@@ -12,19 +13,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class CalibrateColors extends CommandBase {
+public class IdentifyColor extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private boolean isMatched = false;
     private ColorSensor colorSensorSubsystem = Robot.COLORSENSOR;
     private ColorMatch colorMatchSystem = new ColorMatch();
-    private Color perfectRed = ColorMatch.makeColor(1.0, 0.0, 0.0), 
-            perfectBlue = ColorMatch.makeColor(0.0, 0.5, 0.5),   
-            perfectGreen = ColorMatch.makeColor(0.0, 1.0, 0.0), 
-            perfectYellow = ColorMatch.makeColor(0.5, 0.5, 0.0),
-            realYellow = ColorMatch.makeColor(0.31005859375, 0.56884765625, 0.120849609375),
-            realRed = ColorMatch.makeColor(0.52197265625, 0.347900390625, 0.1298828125),
-            realGreen = ColorMatch.makeColor(0.15771484375, 0.5888671875, 0.25341796875),
-            realBlue = ColorMatch.makeColor(0.12255859375, 0.431884765625, 0.445556640625);
 
   /**
    * Creates a new ExampleCommand.
@@ -32,7 +25,7 @@ public class CalibrateColors extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   
-  public CalibrateColors() {
+  public IdentifyColor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(colorSensorSubsystem);
   }
@@ -41,10 +34,11 @@ public class CalibrateColors extends CommandBase {
   @Override
   public void initialize() 
   {
-    colorMatchSystem.addColorMatch(realRed);
-    colorMatchSystem.addColorMatch(realGreen);
-    colorMatchSystem.addColorMatch(realBlue);
-    colorMatchSystem.addColorMatch(realYellow);
+    //Constant color array is formatted 0-3 as Red, Green, Blue, Yellow
+    colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[0]);
+    colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[1]);
+    colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[2]);
+    colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[3]);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,13 +48,13 @@ public class CalibrateColors extends CommandBase {
       String colorName = "Default";
       Color currentColor = colorSensorSubsystem.getColor();
       ColorMatchResult result = colorMatchSystem.matchClosestColor(currentColor);
-      if (result.color.equals(realRed)) {
+      if (result.color.equals(Constants.WHEEL_COLORS[0])) {
             colorName = "Red";
-      } else if (result.color.equals(realBlue)) {
+      } else if (result.color.equals(Constants.WHEEL_COLORS[1])) {
             colorName = "Blue";
-      } else if (result.color.equals(realGreen)) {
+      } else if (result.color.equals(Constants.WHEEL_COLORS[2])) {
             colorName = "Green";
-      } else if (result.color.equals(realYellow)) {
+      } else if (result.color.equals(Constants.WHEEL_COLORS[3])) {
             colorName = "Yellow";
       }
       System.out.println("Color: " + colorName + "; Confidence: " + result.confidence);

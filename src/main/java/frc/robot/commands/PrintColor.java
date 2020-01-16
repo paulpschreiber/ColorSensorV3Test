@@ -34,7 +34,6 @@ public class PrintColor extends CommandBase {
   public void execute()
   {
     colorSensorSubsystem.printColorSensor();
-    colorSensorSubsystem.colorID();
   }
 
   // Called once the command ends or is interrupted.

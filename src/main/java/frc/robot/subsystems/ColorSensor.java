@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.commands.PrintColor;
 
@@ -25,19 +26,15 @@ public class ColorSensor extends SubsystemBase implements Measurable{
     private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
     private ColorMatch colorMatcher = new ColorMatch();
     private Color colorUpdated;
-    public Color realYellow = ColorMatch.makeColor(0.31005859375, 0.56884765625, 0.120849609375),
-    realRed = ColorMatch.makeColor(0.52197265625, 0.347900390625, 0.1298828125),
-    realGreen = ColorMatch.makeColor(0.15771484375, 0.5888671875, 0.25341796875),
-    realBlue = ColorMatch.makeColor(0.12255859375, 0.431884765625, 0.445556640625);
 
   /**
    * Creates a new ExampleSubsystem.
    */
   public ColorSensor() {
-    colorMatcher.addColorMatch(realYellow);
-    colorMatcher.addColorMatch(realBlue);
-    colorMatcher.addColorMatch(realRed);
-    colorMatcher.addColorMatch(realGreen);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[0]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[1]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[2]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[3]);
     telemetryService = Robot.TELEMETRY;
     telemetryService.stop();
     telemetryService.register(this);
