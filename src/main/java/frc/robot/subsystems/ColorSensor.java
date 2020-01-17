@@ -31,6 +31,7 @@ public class ColorSensor extends SubsystemBase implements Measurable{
    * Creates a new ExampleSubsystem.
    */
   public ColorSensor() {
+    //Constant color array is formatted 0-3 as Red, Green, Blue, Yellow
     colorMatcher.addColorMatch(Constants.WHEEL_COLORS[0]);
     colorMatcher.addColorMatch(Constants.WHEEL_COLORS[1]);
     colorMatcher.addColorMatch(Constants.WHEEL_COLORS[2]);

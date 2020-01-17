@@ -43,8 +43,7 @@ public class SpinWheelMotor extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute()
-  {
+  public void execute() {
     if (colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color.equals(Constants.WHEEL_COLORS[3])){
       wheelSpinSubsystem.stopSpin();
     } else {

@@ -20,4 +20,9 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
     //The colors are intended to match button colors (0-3 as RGBY)
     public static Color[] WHEEL_COLORS = new Color[4];
+    public static String[][] WHEEL_POSITIONS = {
+        {"c", "r", "r", "l"}, 
+        {"l", "c", "r", "r"}, 
+        {"r", "l", "c", "r"}, 
+        {"r", "r", "l", "c"}};
 }

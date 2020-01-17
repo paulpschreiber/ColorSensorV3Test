@@ -50,9 +50,9 @@ public class IdentifyColor extends CommandBase {
       ColorMatchResult result = colorMatchSystem.matchClosestColor(currentColor);
       if (result.color.equals(Constants.WHEEL_COLORS[0])) {
             colorName = "Red";
-      } else if (result.color.equals(Constants.WHEEL_COLORS[1])) {
-            colorName = "Blue";
       } else if (result.color.equals(Constants.WHEEL_COLORS[2])) {
+            colorName = "Blue";
+      } else if (result.color.equals(Constants.WHEEL_COLORS[1])) {
             colorName = "Green";
       } else if (result.color.equals(Constants.WHEEL_COLORS[3])) {
             colorName = "Yellow";
