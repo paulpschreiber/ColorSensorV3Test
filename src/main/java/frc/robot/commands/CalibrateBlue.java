@@ -27,7 +27,7 @@ public class CalibrateBlue extends CommandBase {
   @Override
   public void initialize() 
   {
-    Constants.WHEEL_COLORS[2] = colorSensorSubsystem.getColor();
+    Constants.WHEEL_COLORS[3] = colorSensorSubsystem.getColor();
     colorSensorSubsystem.printColorSensor();
   }
 

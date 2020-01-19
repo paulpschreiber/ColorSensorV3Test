@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class SpinWheelMotor extends CommandBase {
+public class GoToColor extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private WheelSpin wheelSpinSubsystem = new WheelSpin();
 
     private ColorMatch colorChecker = new ColorMatch();
     private ColorSensor colorSensorSubsystem = Robot.COLORSENSOR;
+    private String targetColor;
+    private boolean completed;
     
   /**
    * Creates a new ExampleCommand.
@@ -26,7 +28,7 @@ public class SpinWheelMotor extends CommandBase {
    * @param subsystem The subsystem used by this command.
    */
   
-  public SpinWheelMotor() {
+  public GoToColor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(wheelSpinSubsystem);
   }
@@ -35,21 +37,48 @@ public class SpinWheelMotor extends CommandBase {
   @Override
   public void initialize() 
   {
+      targetColor = wheelSpinSubsystem.getTargetColor();
+      System.out.println(targetColor);
+      completed = false;
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[0]);
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[1]);
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[2]);
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[3]);
+      String direction = "c";
+      int colorPos = -2767;
+      for (int i = 0; i < 4; i++) {
+          if (Constants.WHEEL_COLORS[i].equals(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color)) {
+            colorPos = i;
+          }
+      }
+
+      switch (targetColor.charAt(0)) {
+          case 'Y':
+            direction = Constants.WHEEL_POSITIONS[colorPos][0];
+            break;
+          case 'R':
+            direction = Constants.WHEEL_POSITIONS[colorPos][1];
+            break;
+          case 'G':
+            direction = Constants.WHEEL_POSITIONS[colorPos][2];
+            break;
+          case 'B':
+            direction = Constants.WHEEL_POSITIONS[colorPos][3];
+            break;
+          default:
+            completed = true;
+      }
+      wheelSpinSubsystem.setDirection(direction);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color.equals(Constants.WHEEL_COLORS[0])){
-      wheelSpinSubsystem.stopSpin();
-    } else {
-      wheelSpinSubsystem.startSpin();
+    if (colorSensorSubsystem.getColorName(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color).equals(targetColor)) {
+        wheelSpinSubsystem.stopSpin();
+        completed = true;
     }
-
+    System.out.println(colorSensorSubsystem.getColorName(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color) + " vs " + targetColor + " and " + completed);
   }
 
   // Called once the command ends or is interrupted.
@@ -62,6 +91,6 @@ public class SpinWheelMotor extends CommandBase {
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return completed;
   }
 }

@@ -34,7 +34,7 @@ public class IdentifyColor extends CommandBase {
   @Override
   public void initialize() 
   {
-    //Constant color array is formatted 0-3 as Red, Green, Blue, Yellow
+    //Constant color array is formatted 0-3 as Yellow, Red, Green, Blue
     colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[0]);
     colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[1]);
     colorMatchSystem.addColorMatch(Constants.WHEEL_COLORS[2]);
@@ -48,13 +48,13 @@ public class IdentifyColor extends CommandBase {
       String colorName = "Default";
       Color currentColor = colorSensorSubsystem.getColor();
       ColorMatchResult result = colorMatchSystem.matchClosestColor(currentColor);
-      if (result.color.equals(Constants.WHEEL_COLORS[0])) {
+      if (result.color.equals(Constants.WHEEL_COLORS[1])) {
             colorName = "Red";
-      } else if (result.color.equals(Constants.WHEEL_COLORS[2])) {
-            colorName = "Blue";
-      } else if (result.color.equals(Constants.WHEEL_COLORS[1])) {
-            colorName = "Green";
       } else if (result.color.equals(Constants.WHEEL_COLORS[3])) {
+            colorName = "Blue";
+      } else if (result.color.equals(Constants.WHEEL_COLORS[2])) {
+            colorName = "Green";
+      } else if (result.color.equals(Constants.WHEEL_COLORS[0])) {
             colorName = "Yellow";
       }
       System.out.println("Color: " + colorName + "; Confidence: " + result.confidence);

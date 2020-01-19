@@ -1,14 +1,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.util.Color;
 
 public class WheelSpin extends SubsystemBase {
 
@@ -21,10 +22,10 @@ public class WheelSpin extends SubsystemBase {
    * Creates a new ExampleSubsystem.
    */
   public WheelSpin() {
-    colorMatcher.addColorMatch(Color.kYellow);
-    colorMatcher.addColorMatch(Color.kBlue);
-    colorMatcher.addColorMatch(Color.kRed);
-    colorMatcher.addColorMatch(Color.kGreen);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[0]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[1]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[2]);
+    colorMatcher.addColorMatch(Constants.WHEEL_COLORS[3]);
   }
 
   @Override
@@ -42,8 +43,22 @@ public class WheelSpin extends SubsystemBase {
       wheelMotor.set(ControlMode.PercentOutput, 0.0);
   }
 
+  public void setDirection(String d) {
+    double motorPower = 0.0;
+    if (d.equals("l")) {
+      motorPower = -0.5;
+    } else {
+      motorPower = 0.5;
+    }
+    wheelMotor.set(ControlMode.PercentOutput, motorPower);
+  }
+
   public ColorSensorV3 getColorSensor() {
       return colorSensor;
+  }
+
+  public String getTargetColor() {
+    return DriverStation.getInstance().getGameSpecificMessage();
   }
 
   

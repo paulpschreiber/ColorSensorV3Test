@@ -69,6 +69,20 @@ public class ColorSensor extends SubsystemBase implements Measurable{
     return colorSensor.getColor();
   }
 
+  public String getColorName(Color c) {
+    if (c.equals(Constants.WHEEL_COLORS[1])) {
+      return "R";
+    } else if (c.equals(Constants.WHEEL_COLORS[3])) {
+      return "B";
+    } else if (c.equals(Constants.WHEEL_COLORS[2])) {
+      return "G";
+    } else if (c.equals(Constants.WHEEL_COLORS[0])) {
+      return "Y";
+    } else {
+      return "Error";
+    }
+  }
+
   @Override
   public Set<Measure> getMeasures() {
     // TODO Auto-generated method stub

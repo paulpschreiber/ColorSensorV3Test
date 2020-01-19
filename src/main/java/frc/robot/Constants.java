@@ -21,8 +21,8 @@ public final class Constants {
     //The colors are intended to match button colors (0-3 as RGBY)
     public static Color[] WHEEL_COLORS = new Color[4];
     public static String[][] WHEEL_POSITIONS = {
-        {"c", "r", "r", "l"}, 
-        {"l", "c", "r", "r"}, 
-        {"r", "l", "c", "r"}, 
-        {"r", "r", "l", "c"}};
+        {"c", "r", "r", "l"}, // Yellow; Order of strings goes to Target: Y, R, G, B
+        {"l", "c", "r", "r"}, // Red
+        {"r", "l", "c", "r"}, // Green
+        {"r", "r", "l", "c"}}; // Blue
 }
