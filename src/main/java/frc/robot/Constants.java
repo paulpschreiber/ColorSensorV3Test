@@ -18,8 +18,7 @@ import edu.wpi.first.wpilibj.util.Color;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //The colors are intended to match button colors (0-3 as RGBY)
-    public static Color[] WHEEL_COLORS = new Color[4];
+    public static Color[] WHEEL_COLORS = new Color[4]; // Yellow, Red, Green, Blue
     public static String[][] WHEEL_POSITIONS = {
         {"c", "r", "r", "l"}, // Yellow; Order of strings goes to Target: Y, R, G, B
         {"l", "c", "r", "r"}, // Red

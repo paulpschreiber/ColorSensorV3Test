@@ -37,8 +37,7 @@ public class GoToColor extends CommandBase {
   @Override
   public void initialize() 
   {
-      targetColor = wheelSpinSubsystem.getTargetColor();
-      System.out.println(targetColor);
+      targetColor = wheelSpinSubsystem.getTargetColor(); // Reads from game data
       completed = false;
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[0]);
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[1]);
@@ -46,12 +45,15 @@ public class GoToColor extends CommandBase {
       colorChecker.addColorMatch(Constants.WHEEL_COLORS[3]);
       String direction = "c";
       int colorPos = -2767;
+
+      // For finding the color sensor's position on the wheel
       for (int i = 0; i < 4; i++) {
           if (Constants.WHEEL_COLORS[i].equals(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color)) {
             colorPos = i;
           }
       }
-
+      
+      // Takes the current position and looks up which direction (Left or Right) to go based on the constants class
       switch (targetColor.charAt(0)) {
           case 'Y':
             direction = Constants.WHEEL_POSITIONS[colorPos][0];
@@ -74,11 +76,11 @@ public class GoToColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Checks for target color and stops if true
     if (colorSensorSubsystem.getColorName(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color).equals(targetColor)) {
         wheelSpinSubsystem.stopSpin();
         completed = true;
     }
-    System.out.println(colorSensorSubsystem.getColorName(colorChecker.matchClosestColor(colorSensorSubsystem.getColor()).color) + " vs " + targetColor + " and " + completed);
   }
 
   // Called once the command ends or is interrupted.

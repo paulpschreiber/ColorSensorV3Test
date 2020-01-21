@@ -28,7 +28,7 @@ public class CalibrateBlue extends CommandBase {
   public void initialize() 
   {
     Constants.WHEEL_COLORS[3] = colorSensorSubsystem.getColor();
-    colorSensorSubsystem.printColorSensor();
+    colorSensorSubsystem.printColorSensor(); // Optional for test purposes
   }
 
   // Called every time the scheduler runs while the command is scheduled.
